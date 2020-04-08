@@ -1,12 +1,13 @@
 import React, { createContext, useReducer } from 'react';
 import AppReducer from './AppReducer';
+import { v4 as uuid } from 'uuid';
 
 // Initial State
 const initialState = {
   transactions: [
-    { id: 1, text: 'Credit card', amount: -2000 },
-    { id: 2, text: 'Tax refund', amount: 30000 },
-  ],
+    { id: uuid(), text: 'Credit card', amount: -2000 },
+    { id: uuid(), text: 'Tax refund', amount: 30000 }
+  ]
 };
 
 // Create context
@@ -17,17 +18,17 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
-  const addTransaction = (transaction) => {
+  const addTransaction = transaction => {
     dispatch({
       type: 'ADD_TRANSACTION',
-      payload: transaction,
+      payload: transaction
     });
   };
 
-  const deleteTransaction = (id) => {
+  const deleteTransaction = id => {
     dispatch({
       type: 'DELETE_TRANSACTION',
-      payload: id,
+      payload: id
     });
   };
 
@@ -36,7 +37,7 @@ export const GlobalProvider = ({ children }) => {
       value={{
         transactions: state.transactions,
         addTransaction,
-        deleteTransaction,
+        deleteTransaction
       }}
     >
       {children}

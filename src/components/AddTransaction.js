@@ -1,20 +1,19 @@
 import React, { useState, useContext } from 'react';
 import { GlobalContext } from '../context/GlobalState';
+import { v4 as uuid } from 'uuid';
 
 const AddTransaction = () => {
   const [text, setText] = useState('');
   const [amount, setAmount] = useState(0);
   const { addTransaction } = useContext(GlobalContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    const generateID = () => Math.floor(Math.random() * 1000000);
-
     const newTransaction = {
-      id: generateID(),
+      id: uuid(),
       text,
-      amount: Number(amount),
+      amount: Number(amount)
     };
     addTransaction(newTransaction);
   };
@@ -28,7 +27,7 @@ const AddTransaction = () => {
           <input
             type="text"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={e => setText(e.target.value)}
             placeholder="Enter text..."
           />
         </div>
@@ -40,7 +39,7 @@ const AddTransaction = () => {
           <input
             type="number"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            onChange={e => setAmount(e.target.value)}
             placeholder="Enter amount..."
           />
         </div>
